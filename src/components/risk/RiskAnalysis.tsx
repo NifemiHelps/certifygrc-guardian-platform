@@ -1,10 +1,33 @@
 
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Plus, FileText, BarChart } from "lucide-react";
+import { RiskDescriptionForm } from "./RiskDescriptionForm";
+import { RiskDescriptionReports } from "./RiskDescriptionReports";
+
+type RiskDescriptionView = 'form' | 'reports';
 
 export const RiskAnalysis = () => {
+  const [riskDescriptionView, setRiskDescriptionView] = useState<RiskDescriptionView>('form');
+
+  const renderRiskDescriptions = () => {
+    if (riskDescriptionView === 'form') {
+      return (
+        <RiskDescriptionForm
+          onViewReports={() => setRiskDescriptionView('reports')}
+        />
+      );
+    } else {
+      return (
+        <RiskDescriptionReports
+          onBackToForm={() => setRiskDescriptionView('form')}
+        />
+      );
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -27,22 +50,7 @@ export const RiskAnalysis = () => {
         </TabsList>
 
         <TabsContent value="descriptions" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileText size={20} />
-                Risk Descriptions
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center py-12">
-                <FileText size={48} className="mx-auto text-gray-400 mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No Risk Descriptions Yet</h3>
-                <p className="text-gray-500 mb-6">Start by creating your first risk description form</p>
-                <Button>Create Risk Description</Button>
-              </div>
-            </CardContent>
-          </Card>
+          {renderRiskDescriptions()}
         </TabsContent>
 
         <TabsContent value="pre-treatment" className="space-y-6">
