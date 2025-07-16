@@ -15,6 +15,10 @@ const Index = () => {
   const [activePage, setActivePage] = useState<PageType>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
+  const handleSetActivePage = (page: string) => {
+    setActivePage(page as PageType);
+  };
+
   const renderPage = () => {
     switch (activePage) {
       case 'dashboard':
@@ -38,7 +42,7 @@ const Index = () => {
     <div className="min-h-screen bg-gray-50 flex">
       <Sidebar 
         activePage={activePage} 
-        setActivePage={setActivePage}
+        setActivePage={handleSetActivePage}
         isOpen={sidebarOpen}
         setIsOpen={setSidebarOpen}
       />
