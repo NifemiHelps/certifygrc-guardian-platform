@@ -6,11 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Plus, FileText, BarChart } from "lucide-react";
 import { RiskDescriptionForm } from "./RiskDescriptionForm";
 import { RiskDescriptionReports } from "./RiskDescriptionReports";
+import { PreTreatmentForm } from "./PreTreatmentForm";
+import { PreTreatmentReports } from "./PreTreatmentReports";
 
 type RiskDescriptionView = 'form' | 'reports';
+type PreTreatmentView = 'form' | 'reports';
 
 export const RiskAnalysis = () => {
   const [riskDescriptionView, setRiskDescriptionView] = useState<RiskDescriptionView>('form');
+  const [preTreatmentView, setPreTreatmentView] = useState<PreTreatmentView>('form');
 
   const renderRiskDescriptions = () => {
     if (riskDescriptionView === 'form') {
@@ -23,6 +27,22 @@ export const RiskAnalysis = () => {
       return (
         <RiskDescriptionReports
           onBackToForm={() => setRiskDescriptionView('form')}
+        />
+      );
+    }
+  };
+
+  const renderPreTreatment = () => {
+    if (preTreatmentView === 'form') {
+      return (
+        <PreTreatmentForm
+          onViewReports={() => setPreTreatmentView('reports')}
+        />
+      );
+    } else {
+      return (
+        <PreTreatmentReports
+          onBackToForm={() => setPreTreatmentView('form')}
         />
       );
     }
@@ -54,22 +74,7 @@ export const RiskAnalysis = () => {
         </TabsContent>
 
         <TabsContent value="pre-treatment" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BarChart size={20} />
-                Pre-Treatment Assessment
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center py-12">
-                <BarChart size={48} className="mx-auto text-gray-400 mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No Pre-Treatment Assessments</h3>
-                <p className="text-gray-500 mb-6">Analyze existing controls and risk levels before treatment</p>
-                <Button>Create Pre-Treatment Assessment</Button>
-              </div>
-            </CardContent>
-          </Card>
+          {renderPreTreatment()}
         </TabsContent>
 
         <TabsContent value="post-treatment" className="space-y-6">
