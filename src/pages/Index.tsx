@@ -6,10 +6,12 @@ import { Dashboard } from "@/components/dashboard/Dashboard";
 import { RiskAnalysis } from "@/components/risk/RiskAnalysis";
 import { AssessmentGap } from "@/components/assessment/AssessmentGap";
 import { AssessmentEvidence } from "@/components/assessment/AssessmentEvidence";
+import { ContextOfOrganization } from "@/components/assessment/ContextOfOrganization";
+import { ContextOfOrganizationReports } from "@/components/assessment/ContextOfOrganizationReports";
 import { TreatmentDashboard } from "@/components/treatment/TreatmentDashboard";
 import { CompanyDetails } from "@/components/company/CompanyDetails";
 
-type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'treatment-dashboard' | 'company-details';
+type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'treatment-dashboard' | 'company-details' | 'context-org' | 'context-organization-reports';
 
 const Index = () => {
   const [activePage, setActivePage] = useState<PageType>('dashboard');
@@ -33,6 +35,10 @@ const Index = () => {
         return <TreatmentDashboard />;
       case 'company-details':
         return <CompanyDetails />;
+      case 'context-org':
+        return <ContextOfOrganization setActivePage={handleSetActivePage} />;
+      case 'context-organization-reports':
+        return <ContextOfOrganizationReports setActivePage={handleSetActivePage} />;
       default:
         return <Dashboard />;
     }
