@@ -26,7 +26,7 @@ const Index = () => {
       case 'risk-analysis':
         return <RiskAnalysis />;
       case 'assessment-gap':
-        return <AssessmentGap />;
+        return <AssessmentGap setActivePage={handleSetActivePage} />;
       case 'assessment-evidence':
         return <AssessmentEvidence />;
       case 'treatment-dashboard':
