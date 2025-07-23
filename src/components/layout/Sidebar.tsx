@@ -59,7 +59,7 @@ export const Sidebar = ({ activePage, setActivePage, isOpen, setIsOpen }: Sideba
       hasSubmenu: true,
       subItems: [
         { id: 'context-org', label: '4. Context of Organization', page: 'context-org' },
-        { id: 'leadership', label: 'Leadership', page: 'assessment-gap' },
+        { id: 'leadership', label: 'Leadership', page: 'leadership' },
         { id: 'planning', label: 'Planning', page: 'assessment-gap' },
         { id: 'support', label: 'Support', page: 'assessment-gap' },
         { id: 'operation', label: 'Operation', page: 'assessment-gap' },
