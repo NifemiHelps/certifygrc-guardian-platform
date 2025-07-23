@@ -186,8 +186,7 @@ export const Leadership = ({ setActivePage }: LeadershipProps) => {
             <CardHeader>
               <CardTitle className="text-xl text-blue-700">{section.title}</CardTitle>
               <div className="bg-blue-50 p-4 rounded-lg">
-                <p className="text-gray-700 font-medium">Question:</p>
-                <p className="text-gray-600 mt-1">{section.question}</p>
+                <p className="text-gray-700">{section.question}</p>
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
