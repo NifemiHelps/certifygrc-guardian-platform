@@ -79,6 +79,7 @@ const PlanningReports = () => {
   const loadAssessments = () => {
     const savedData = localStorage.getItem('planningAssessments') || '[]';
     const data = JSON.parse(savedData);
+    console.log('Loading planning assessments:', data);
     setAssessments(data);
   };
 
@@ -169,60 +170,68 @@ const PlanningReports = () => {
 
   const renderListView = () => (
     <div className="space-y-4">
-      {filteredAssessments.map(assessment => (
-        <Card key={assessment.id}>
-          <CardHeader className="pb-3">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">
-                Assessment #{assessment.id}
-              </CardTitle>
-              <div className="flex items-center gap-2">
-                <Badge variant="outline">
-                  {new Date(assessment.timestamp).toLocaleDateString()}
-                </Badge>
-                <Button variant="ghost" size="sm">
-                  <Eye className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="sm">
-                  <Edit className="h-4 w-4" />
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  onClick={() => handleDelete(assessment.id)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {Object.entries(assessment.sections).map(([sectionId, section]) => (
-                <div key={sectionId} className="border rounded-lg p-3">
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-medium text-sm">{sectionTitles[sectionId]}</h4>
-                    <Badge variant={section.reqsMet === 'yes' ? 'default' : 'destructive'}>
-                      {section.reqsMet === 'yes' ? 'Met' : 'Not Met'}
-                    </Badge>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
-                    <div>
-                      <span className="font-medium">Comments:</span> {section.comments || 'N/A'}
-                    </div>
-                    <div>
-                      <span className="font-medium">Action:</span> {section.actionNeeded || 'N/A'}
-                    </div>
-                    <div>
-                      <span className="font-medium">Owner:</span> {section.actionOwner || 'N/A'}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+      {filteredAssessments.length === 0 ? (
+        <Card>
+          <CardContent className="p-6 text-center">
+            <p className="text-gray-500">No planning assessments found. Save an assessment first to see it here.</p>
           </CardContent>
         </Card>
-      ))}
+      ) : (
+        filteredAssessments.map(assessment => (
+          <Card key={assessment.id}>
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg">
+                  Assessment #{assessment.id}
+                </CardTitle>
+                <div className="flex items-center gap-2">
+                  <Badge variant="outline">
+                    {new Date(assessment.timestamp).toLocaleDateString()}
+                  </Badge>
+                  <Button variant="ghost" size="sm">
+                    <Eye className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm">
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => handleDelete(assessment.id)}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {Object.entries(assessment.sections).map(([sectionId, section]) => (
+                  <div key={sectionId} className="border rounded-lg p-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-medium text-sm">{sectionTitles[sectionId]}</h4>
+                      <Badge variant={section.reqsMet === 'yes' ? 'default' : 'destructive'}>
+                        {section.reqsMet === 'yes' ? 'Met' : 'Not Met'}
+                      </Badge>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
+                      <div>
+                        <span className="font-medium">Comments:</span> {section.comments || 'N/A'}
+                      </div>
+                      <div>
+                        <span className="font-medium">Action:</span> {section.actionNeeded || 'N/A'}
+                      </div>
+                      <div>
+                        <span className="font-medium">Owner:</span> {section.actionOwner || 'N/A'}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        ))
+      )}
     </div>
   );
 
