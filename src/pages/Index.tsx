@@ -1,5 +1,6 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
 import { Dashboard } from "@/components/dashboard/Dashboard";
@@ -18,11 +19,59 @@ import { CompanyDetails } from "@/components/company/CompanyDetails";
 type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'treatment-dashboard' | 'company-details' | 'context-org' | 'context-organization-reports' | 'leadership' | 'leadership-reports' | 'planning' | 'planning-reports';
 
 const Index = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [activePage, setActivePage] = useState<PageType>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
+  // Map URL paths to page types
+  const pathToPageMap: Record<string, PageType> = {
+    '/': 'dashboard',
+    '/dashboard': 'dashboard',
+    '/risk-analysis': 'risk-analysis',
+    '/assessment-gap': 'assessment-gap',
+    '/assessment-evidence': 'assessment-evidence',
+    '/treatment-dashboard': 'treatment-dashboard',
+    '/company-details': 'company-details',
+    '/context-org': 'context-org',
+    '/context-organization-reports': 'context-organization-reports',
+    '/leadership': 'leadership',
+    '/leadership-reports': 'leadership-reports',
+    '/planning': 'planning',
+    '/planning-reports': 'planning-reports'
+  };
+
+  const pageToPathMap: Record<PageType, string> = {
+    'dashboard': '/dashboard',
+    'risk-analysis': '/risk-analysis',
+    'assessment-gap': '/assessment-gap',
+    'assessment-evidence': '/assessment-evidence',
+    'treatment-dashboard': '/treatment-dashboard',
+    'company-details': '/company-details',
+    'context-org': '/context-org',
+    'context-organization-reports': '/context-organization-reports',
+    'leadership': '/leadership',
+    'leadership-reports': '/leadership-reports',
+    'planning': '/planning',
+    'planning-reports': '/planning-reports'
+  };
+
+  // Update activePage based on URL
+  useEffect(() => {
+    const currentPage = pathToPageMap[location.pathname];
+    if (currentPage) {
+      setActivePage(currentPage);
+    }
+  }, [location.pathname]);
+
   const handleSetActivePage = (page: string) => {
-    setActivePage(page as PageType);
+    const pageType = page as PageType;
+    setActivePage(pageType);
+    // Update URL when page changes
+    const path = pageToPathMap[pageType];
+    if (path && location.pathname !== path) {
+      navigate(path);
+    }
   };
 
   const renderPage = () => {
