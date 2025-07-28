@@ -10,10 +10,12 @@ import { ContextOfOrganization } from "@/components/assessment/ContextOfOrganiza
 import { ContextOfOrganizationReports } from "@/components/assessment/ContextOfOrganizationReports";
 import { Leadership } from "@/components/assessment/Leadership";
 import { LeadershipReports } from "@/components/assessment/LeadershipReports";
+import Planning from "@/components/assessment/Planning";
+import PlanningReports from "@/components/assessment/PlanningReports";
 import { TreatmentDashboard } from "@/components/treatment/TreatmentDashboard";
 import { CompanyDetails } from "@/components/company/CompanyDetails";
 
-type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'treatment-dashboard' | 'company-details' | 'context-org' | 'context-organization-reports' | 'leadership' | 'leadership-reports';
+type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'treatment-dashboard' | 'company-details' | 'context-org' | 'context-organization-reports' | 'leadership' | 'leadership-reports' | 'planning' | 'planning-reports';
 
 const Index = () => {
   const [activePage, setActivePage] = useState<PageType>('dashboard');
@@ -45,6 +47,10 @@ const Index = () => {
         return <Leadership setActivePage={handleSetActivePage} />;
       case 'leadership-reports':
         return <LeadershipReports setActivePage={handleSetActivePage} />;
+      case 'planning':
+        return <Planning />;
+      case 'planning-reports':
+        return <PlanningReports />;
       default:
         return <Dashboard />;
     }

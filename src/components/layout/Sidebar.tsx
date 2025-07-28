@@ -60,7 +60,7 @@ export const Sidebar = ({ activePage, setActivePage, isOpen, setIsOpen }: Sideba
       subItems: [
         { id: 'context-org', label: '4. Context of Organization', page: 'context-org' },
         { id: 'leadership', label: 'Leadership', page: 'leadership' },
-        { id: 'planning', label: 'Planning', page: 'assessment-gap' },
+        { id: 'planning', label: '6. Planning', page: 'planning' },
         { id: 'support', label: 'Support', page: 'assessment-gap' },
         { id: 'operation', label: 'Operation', page: 'assessment-gap' },
         { id: 'performance', label: 'Performance Evaluation', page: 'assessment-gap' },
