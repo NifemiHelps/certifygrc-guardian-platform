@@ -180,9 +180,6 @@ export const Support = ({ setActivePage }: SupportProps) => {
           {sections.map((section, index) => (
             <div key={section.id} className="space-y-4">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  Section {index + 1}: {section.title}
-                </h3>
                 <p className="text-gray-700 mb-4 p-3 bg-gray-50 rounded-md border-l-4 border-blue-500">
                   {section.question}
                 </p>
