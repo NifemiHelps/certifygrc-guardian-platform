@@ -13,10 +13,12 @@ import { Leadership } from "@/components/assessment/Leadership";
 import { LeadershipReports } from "@/components/assessment/LeadershipReports";
 import Planning from "@/components/assessment/Planning";
 import PlanningReports from "@/components/assessment/PlanningReports";
+import { Support } from "@/components/assessment/Support";
+import { SupportReports } from "@/components/assessment/SupportReports";
 import { TreatmentDashboard } from "@/components/treatment/TreatmentDashboard";
 import { CompanyDetails } from "@/components/company/CompanyDetails";
 
-type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'treatment-dashboard' | 'company-details' | 'context-org' | 'context-organization-reports' | 'leadership' | 'leadership-reports' | 'planning' | 'planning-reports';
+type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'treatment-dashboard' | 'company-details' | 'context-org' | 'context-organization-reports' | 'leadership' | 'leadership-reports' | 'planning' | 'planning-reports' | 'support' | 'support-reports';
 
 const Index = () => {
   const location = useLocation();
@@ -38,7 +40,9 @@ const Index = () => {
     '/leadership': 'leadership',
     '/leadership-reports': 'leadership-reports',
     '/planning': 'planning',
-    '/planning-reports': 'planning-reports'
+    '/planning-reports': 'planning-reports',
+    '/support': 'support',
+    '/support-reports': 'support-reports'
   };
 
   const pageToPathMap: Record<PageType, string> = {
@@ -53,7 +57,9 @@ const Index = () => {
     'leadership': '/leadership',
     'leadership-reports': '/leadership-reports',
     'planning': '/planning',
-    'planning-reports': '/planning-reports'
+    'planning-reports': '/planning-reports',
+    'support': '/support',
+    'support-reports': '/support-reports'
   };
 
   // Update activePage based on URL
@@ -100,6 +106,10 @@ const Index = () => {
         return <Planning />;
       case 'planning-reports':
         return <PlanningReports />;
+      case 'support':
+        return <Support setActivePage={handleSetActivePage} />;
+      case 'support-reports':
+        return <SupportReports setActivePage={handleSetActivePage} />;
       default:
         return <Dashboard />;
     }

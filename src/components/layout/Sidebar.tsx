@@ -61,7 +61,7 @@ export const Sidebar = ({ activePage, setActivePage, isOpen, setIsOpen }: Sideba
         { id: 'context-org', label: '4. Context of Organization', page: 'context-org' },
         { id: 'leadership', label: 'Leadership', page: 'leadership' },
         { id: 'planning', label: '6. Planning', page: 'planning' },
-        { id: 'support', label: 'Support', page: 'assessment-gap' },
+        { id: 'support', label: '7. Support', page: 'support' },
         { id: 'operation', label: 'Operation', page: 'assessment-gap' },
         { id: 'performance', label: 'Performance Evaluation', page: 'assessment-gap' },
         { id: 'improvement', label: 'Improvement', page: 'assessment-gap' },
