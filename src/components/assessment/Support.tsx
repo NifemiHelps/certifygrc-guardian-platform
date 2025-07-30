@@ -184,7 +184,7 @@ export const Support = ({ setActivePage }: SupportProps) => {
                   Section {index + 1}: {section.title}
                 </h3>
                 <p className="text-gray-700 mb-4 p-3 bg-gray-50 rounded-md border-l-4 border-blue-500">
-                  <strong>Question:</strong> {section.question}
+                  {section.question}
                 </p>
               </div>
 
