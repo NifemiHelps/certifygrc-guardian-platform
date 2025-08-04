@@ -71,9 +71,13 @@ const OperationReports = ({ onNavigate }: { onNavigate: (page: string) => void }
 
   const loadAssessments = () => {
     const saved = localStorage.getItem('operationAssessments');
+    console.log('Loading assessments from localStorage:', saved);
     if (saved) {
       const parsed = JSON.parse(saved);
+      console.log('Parsed assessments:', parsed);
       setAssessments(parsed);
+    } else {
+      console.log('No saved assessments found');
     }
   };
 
@@ -176,38 +180,52 @@ const OperationReports = ({ onNavigate }: { onNavigate: (page: string) => void }
     return Array.from(owners);
   };
 
-  const renderListView = () => (
-    <div className="space-y-4">
-      {filteredAssessments.map((assessment) => (
-        <Card key={assessment.id} className="shadow-sm">
-          <CardHeader className="pb-4">
-            <div className="flex justify-between items-start">
-              <div>
-                <CardTitle className="text-lg">Assessment {assessment.id}</CardTitle>
-                <p className="text-sm text-gray-600 mt-1">
-                  Created: {new Date(assessment.timestamp).toLocaleDateString()}
-                </p>
+  const renderListView = () => {
+    console.log('Rendering list view with assessments:', filteredAssessments);
+    
+    if (filteredAssessments.length === 0) {
+      return (
+        <div className="text-center py-8">
+          <p className="text-gray-500 mb-4">No assessments found.</p>
+          <Button onClick={() => onNavigate('operation')} variant="outline">
+            Create Your First Assessment
+          </Button>
+        </div>
+      );
+    }
+    
+    return (
+      <div className="space-y-4">
+        {filteredAssessments.map((assessment) => (
+          <Card key={assessment.id} className="shadow-sm">
+            <CardHeader className="pb-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <CardTitle className="text-lg">Assessment {assessment.id}</CardTitle>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Created: {new Date(assessment.timestamp).toLocaleDateString()}
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">
+                    <Eye className="h-4 w-4 mr-1" />
+                    View
+                  </Button>
+                  <Button variant="outline" size="sm">
+                    <Edit className="h-4 w-4 mr-1" />
+                    Edit
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => handleDelete(assessment.id)}
+                  >
+                    <Trash2 className="h-4 w-4 mr-1" />
+                    Delete
+                  </Button>
+                </div>
               </div>
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm">
-                  <Eye className="h-4 w-4 mr-1" />
-                  View
-                </Button>
-                <Button variant="outline" size="sm">
-                  <Edit className="h-4 w-4 mr-1" />
-                  Edit
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => handleDelete(assessment.id)}
-                >
-                  <Trash2 className="h-4 w-4 mr-1" />
-                  Delete
-                </Button>
-              </div>
-            </div>
-          </CardHeader>
+            </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {sections.map((section, index) => {
@@ -245,6 +263,7 @@ const OperationReports = ({ onNavigate }: { onNavigate: (page: string) => void }
       ))}
     </div>
   );
+};
 
   const renderSpreadsheetView = () => (
     <div className="border rounded-lg overflow-hidden">

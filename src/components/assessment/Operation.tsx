@@ -90,8 +90,10 @@ const Operation = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
       sections: formData
     };
     
+    console.log('Saving new assessment:', newAssessment);
     savedAssessments.push(newAssessment);
     localStorage.setItem('operationAssessments', JSON.stringify(savedAssessments));
+    console.log('Total assessments saved:', savedAssessments.length);
 
     toast({
       title: "Assessment Saved",
