@@ -15,10 +15,12 @@ import Planning from "@/components/assessment/Planning";
 import PlanningReports from "@/components/assessment/PlanningReports";
 import { Support } from "@/components/assessment/Support";
 import { SupportReports } from "@/components/assessment/SupportReports";
+import Operation from "@/components/assessment/Operation";
+import OperationReports from "@/components/assessment/OperationReports";
 import { TreatmentDashboard } from "@/components/treatment/TreatmentDashboard";
 import { CompanyDetails } from "@/components/company/CompanyDetails";
 
-type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'treatment-dashboard' | 'company-details' | 'context-org' | 'context-organization-reports' | 'leadership' | 'leadership-reports' | 'planning' | 'planning-reports' | 'support' | 'support-reports';
+type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'treatment-dashboard' | 'company-details' | 'context-org' | 'context-organization-reports' | 'leadership' | 'leadership-reports' | 'planning' | 'planning-reports' | 'support' | 'support-reports' | 'operation' | 'operation-reports';
 
 const Index = () => {
   const location = useLocation();
@@ -42,7 +44,9 @@ const Index = () => {
     '/planning': 'planning',
     '/planning-reports': 'planning-reports',
     '/support': 'support',
-    '/support-reports': 'support-reports'
+    '/support-reports': 'support-reports',
+    '/operation': 'operation',
+    '/operation-reports': 'operation-reports'
   };
 
   const pageToPathMap: Record<PageType, string> = {
@@ -59,7 +63,9 @@ const Index = () => {
     'planning': '/planning',
     'planning-reports': '/planning-reports',
     'support': '/support',
-    'support-reports': '/support-reports'
+    'support-reports': '/support-reports',
+    'operation': '/operation',
+    'operation-reports': '/operation-reports'
   };
 
   // Update activePage based on URL
@@ -110,6 +116,10 @@ const Index = () => {
         return <Support setActivePage={handleSetActivePage} />;
       case 'support-reports':
         return <SupportReports setActivePage={handleSetActivePage} />;
+      case 'operation':
+        return <Operation onNavigate={handleSetActivePage} />;
+      case 'operation-reports':
+        return <OperationReports onNavigate={handleSetActivePage} />;
       default:
         return <Dashboard />;
     }
