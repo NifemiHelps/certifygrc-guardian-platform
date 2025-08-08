@@ -63,7 +63,7 @@ export const Sidebar = ({ activePage, setActivePage, isOpen, setIsOpen }: Sideba
         { id: 'planning', label: '6. Planning', page: 'planning' },
         { id: 'support', label: '7. Support', page: 'support' },
         { id: 'operation', label: '8. Operation', page: 'operation' },
-        { id: 'performance', label: 'Performance Evaluation', page: 'assessment-gap' },
+        { id: 'performance', label: 'Performance Evaluation', page: 'performance-evaluation' },
         { id: 'improvement', label: 'Improvement', page: 'assessment-gap' },
         { id: 'a5-controls', label: 'A.5 Organizational Controls', page: 'assessment-gap' },
         { id: 'a6-controls', label: 'A.6 People Controls', page: 'assessment-gap' },
