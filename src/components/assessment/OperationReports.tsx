@@ -94,7 +94,7 @@ const OperationReports = ({ onNavigate }: { onNavigate: (page: string) => void }
       );
     }
 
-    if (filterOwner) {
+    if (filterOwner && filterOwner !== 'all') {
       filtered = filtered.filter(assessment =>
         Object.values(assessment.sections).some(section =>
           section.actionOwner.toLowerCase().includes(filterOwner.toLowerCase())
@@ -102,7 +102,7 @@ const OperationReports = ({ onNavigate }: { onNavigate: (page: string) => void }
       );
     }
 
-    if (filterReqsMet) {
+    if (filterReqsMet && filterReqsMet !== 'all') {
       filtered = filtered.filter(assessment =>
         Object.values(assessment.sections).some(section =>
           section.reqsMet === filterReqsMet
@@ -461,7 +461,7 @@ const OperationReports = ({ onNavigate }: { onNavigate: (page: string) => void }
               <SelectValue placeholder="Filter by Owner" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Owners</SelectItem>
+              <SelectItem value="all">All Owners</SelectItem>
               {getAllOwners().map(owner => (
                 <SelectItem key={owner} value={owner}>{owner}</SelectItem>
               ))}
@@ -472,7 +472,7 @@ const OperationReports = ({ onNavigate }: { onNavigate: (page: string) => void }
               <SelectValue placeholder="Filter by Status" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Status</SelectItem>
+              <SelectItem value="all">All Status</SelectItem>
               <SelectItem value="yes">Requirements Met</SelectItem>
               <SelectItem value="no">Requirements Not Met</SelectItem>
             </SelectContent>
