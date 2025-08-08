@@ -17,10 +17,12 @@ import { Support } from "@/components/assessment/Support";
 import { SupportReports } from "@/components/assessment/SupportReports";
 import Operation from "@/components/assessment/Operation";
 import OperationReports from "@/components/assessment/OperationReports";
+import { PerformanceEvaluation } from "@/components/assessment/PerformanceEvaluation";
+import { PerformanceEvaluationReports } from "@/components/assessment/PerformanceEvaluationReports";
 import { TreatmentDashboard } from "@/components/treatment/TreatmentDashboard";
 import { CompanyDetails } from "@/components/company/CompanyDetails";
 
-type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'treatment-dashboard' | 'company-details' | 'context-org' | 'context-organization-reports' | 'leadership' | 'leadership-reports' | 'planning' | 'planning-reports' | 'support' | 'support-reports' | 'operation' | 'operation-reports';
+type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'treatment-dashboard' | 'company-details' | 'context-org' | 'context-organization-reports' | 'leadership' | 'leadership-reports' | 'planning' | 'planning-reports' | 'support' | 'support-reports' | 'operation' | 'operation-reports' | 'performance-evaluation' | 'performance-evaluation-reports';
 
 const Index = () => {
   const location = useLocation();
@@ -46,7 +48,9 @@ const Index = () => {
     '/support': 'support',
     '/support-reports': 'support-reports',
     '/operation': 'operation',
-    '/operation-reports': 'operation-reports'
+    '/operation-reports': 'operation-reports',
+    '/performance-evaluation': 'performance-evaluation',
+    '/performance-evaluation-reports': 'performance-evaluation-reports'
   };
 
   const pageToPathMap: Record<PageType, string> = {
@@ -65,7 +69,9 @@ const Index = () => {
     'support': '/support',
     'support-reports': '/support-reports',
     'operation': '/operation',
-    'operation-reports': '/operation-reports'
+    'operation-reports': '/operation-reports',
+    'performance-evaluation': '/performance-evaluation',
+    'performance-evaluation-reports': '/performance-evaluation-reports'
   };
 
   // Update activePage based on URL
@@ -124,6 +130,10 @@ const Index = () => {
         return <Operation onNavigate={handleSetActivePage} />;
       case 'operation-reports':
         return <OperationReports onNavigate={handleSetActivePage} />;
+      case 'performance-evaluation':
+        return <PerformanceEvaluation setActivePage={handleSetActivePage} />;
+      case 'performance-evaluation-reports':
+        return <PerformanceEvaluationReports setActivePage={handleSetActivePage} />;
       default:
         return <Dashboard />;
     }
