@@ -73,6 +73,10 @@ const Index = () => {
     const currentPage = pathToPageMap[location.pathname];
     if (currentPage) {
       setActivePage(currentPage);
+    } else {
+      // If no match found, default to dashboard
+      console.log('No route match found for:', location.pathname);
+      setActivePage('dashboard');
     }
   }, [location.pathname]);
 
