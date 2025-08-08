@@ -82,8 +82,8 @@ export const PostTreatmentReports = ({ onBackToForm }: PostTreatmentReportsProps
       assessment.impactRationalePostTreatment.toLowerCase().includes(searchTerm.toLowerCase()) ||
       assessment.evidenceComment.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const matchesLikelihood = !filterLikelihood || assessment.likelihoodPostTreatment === filterLikelihood;
-    const matchesImpact = !filterImpact || assessment.impactPostTreatment === filterImpact;
+    const matchesLikelihood = !filterLikelihood || filterLikelihood === 'all' || assessment.likelihoodPostTreatment === filterLikelihood;
+    const matchesImpact = !filterImpact || filterImpact === 'all' || assessment.impactPostTreatment === filterImpact;
 
     return matchesSearch && matchesLikelihood && matchesImpact;
   });
@@ -397,7 +397,7 @@ export const PostTreatmentReports = ({ onBackToForm }: PostTreatmentReportsProps
                 <SelectValue placeholder="Filter by Likelihood" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Likelihood</SelectItem>
+                <SelectItem value="all">All Likelihood</SelectItem>
                 <SelectItem value="Very Low">Very Low</SelectItem>
                 <SelectItem value="Low">Low</SelectItem>
                 <SelectItem value="Medium">Medium</SelectItem>
@@ -410,7 +410,7 @@ export const PostTreatmentReports = ({ onBackToForm }: PostTreatmentReportsProps
                 <SelectValue placeholder="Filter by Impact" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Impact</SelectItem>
+                <SelectItem value="all">All Impact</SelectItem>
                 <SelectItem value="Very Low">Very Low</SelectItem>
                 <SelectItem value="Low">Low</SelectItem>
                 <SelectItem value="Medium">Medium</SelectItem>
