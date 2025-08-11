@@ -120,8 +120,7 @@ export const Improvement = () => {
             <CardHeader>
               <CardTitle className="text-xl text-blue-700">{section.title}</CardTitle>
               <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <p className="font-medium text-blue-800">Assessment Question:</p>
-                <p className="text-blue-700 mt-1">{section.question}</p>
+                <p className="text-blue-700 font-medium">{section.question}</p>
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
