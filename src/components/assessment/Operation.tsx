@@ -124,14 +124,24 @@ const Operation = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
               Assess operational planning, control, risk assessment, and risk treatment processes
             </p>
           </div>
-          <Button 
-            onClick={() => onNavigate('operation-reports')}
-            variant="outline"
-            className="flex items-center gap-2"
-          >
-            <FileText className="h-4 w-4" />
-            View 8. Operation Reports
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              onClick={() => onNavigate('operation-reports')}
+              variant="outline"
+              className="flex items-center gap-2"
+            >
+              <FileText className="h-4 w-4" />
+              View 8. Operation Reports
+            </Button>
+            <Button 
+              onClick={() => onNavigate('people-controls-reports')}
+              variant="outline"
+              className="flex items-center gap-2"
+            >
+              <FileText className="h-4 w-4" />
+              A.6 People Controls Reports
+            </Button>
+          </div>
         </div>
       </div>
 
