@@ -67,7 +67,7 @@ export const Sidebar = ({ activePage, setActivePage, isOpen, setIsOpen }: Sideba
         { id: 'improvement', label: '10. Improvement', page: 'improvement' },
         { id: 'a5-controls', label: 'A.5 Organizational Controls', page: 'organizational-controls' },
         { id: 'a6-controls', label: 'A.6 People Controls', page: 'people-controls' },
-        { id: 'a7-controls', label: 'A.7 Physical Controls', page: 'assessment-gap' },
+        { id: 'a7-controls', label: 'A.7 Physical Controls', page: 'physical-controls' },
         { id: 'a8-controls', label: 'A.8 Technological Controls', page: 'assessment-gap' }
       ]
     },

@@ -25,10 +25,12 @@ import OrganizationalControls from "@/components/assessment/OrganizationalContro
 import OrganizationalControlsReports from "@/components/assessment/OrganizationalControlsReports";
 import PeopleControls from "@/components/assessment/PeopleControls";
 import PeopleControlsReports from "@/components/assessment/PeopleControlsReports";
+import PhysicalControls from "@/components/assessment/PhysicalControls";
+import PhysicalControlsReports from "@/components/assessment/PhysicalControlsReports";
 import { TreatmentDashboard } from "@/components/treatment/TreatmentDashboard";
 import { CompanyDetails } from "@/components/company/CompanyDetails";
 
-type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'treatment-dashboard' | 'company-details' | 'context-org' | 'context-organization-reports' | 'leadership' | 'leadership-reports' | 'planning' | 'planning-reports' | 'support' | 'support-reports' | 'operation' | 'operation-reports' | 'performance-evaluation' | 'performance-evaluation-reports' | 'improvement' | 'improvement-reports' | 'organizational-controls' | 'organizational-controls-reports' | 'people-controls' | 'people-controls-reports';
+type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'treatment-dashboard' | 'company-details' | 'context-org' | 'context-organization-reports' | 'leadership' | 'leadership-reports' | 'planning' | 'planning-reports' | 'support' | 'support-reports' | 'operation' | 'operation-reports' | 'performance-evaluation' | 'performance-evaluation-reports' | 'improvement' | 'improvement-reports' | 'organizational-controls' | 'organizational-controls-reports' | 'people-controls' | 'people-controls-reports' | 'physical-controls' | 'physical-controls-reports';
 
 const Index = () => {
   const location = useLocation();
@@ -62,7 +64,9 @@ const Index = () => {
     '/organizational-controls': 'organizational-controls',
     '/organizational-controls-reports': 'organizational-controls-reports',
     '/people-controls': 'people-controls',
-    '/people-controls-reports': 'people-controls-reports'
+    '/people-controls-reports': 'people-controls-reports',
+    '/physical-controls': 'physical-controls',
+    '/physical-controls-reports': 'physical-controls-reports'
   };
 
   const pageToPathMap: Record<PageType, string> = {
@@ -89,7 +93,9 @@ const Index = () => {
     'organizational-controls': '/organizational-controls',
     'organizational-controls-reports': '/organizational-controls-reports',
     'people-controls': '/people-controls',
-    'people-controls-reports': '/people-controls-reports'
+    'people-controls-reports': '/people-controls-reports',
+    'physical-controls': '/physical-controls',
+    'physical-controls-reports': '/physical-controls-reports'
   };
 
   // Update activePage based on URL
@@ -164,6 +170,10 @@ const Index = () => {
         return <PeopleControls />;
       case 'people-controls-reports':
         return <PeopleControlsReports />;
+      case 'physical-controls':
+        return <PhysicalControls onNavigate={handleSetActivePage} />;
+      case 'physical-controls-reports':
+        return <PhysicalControlsReports onNavigate={handleSetActivePage} />;
       default:
         return <Dashboard />;
     }
