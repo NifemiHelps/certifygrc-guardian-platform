@@ -28,9 +28,9 @@ export const TechnologicalControlsReports = ({ onNavigate }: TechnologicalContro
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [viewMode, setViewMode] = useState<'list' | 'spreadsheet' | 'kanban'>('list');
   const [filters, setFilters] = useState({
-    reqsMet: '',
+    reqsMet: 'all',
     actionOwner: '',
-    section: ''
+    section: 'all'
   });
 
   const editForm = useForm();
@@ -60,7 +60,7 @@ export const TechnologicalControlsReports = ({ onNavigate }: TechnologicalContro
       );
     }
 
-    if (filters.reqsMet) {
+    if (filters.reqsMet && filters.reqsMet !== "all") {
       filtered = filtered.filter(record =>
         record.sections?.some((section: any) => section.reqsMet === filters.reqsMet)
       );
@@ -74,7 +74,7 @@ export const TechnologicalControlsReports = ({ onNavigate }: TechnologicalContro
       );
     }
 
-    if (filters.section) {
+    if (filters.section && filters.section !== "all") {
       filtered = filtered.filter(record =>
         record.sections?.some((section: any) => section.id === filters.section)
       );
@@ -378,7 +378,7 @@ export const TechnologicalControlsReports = ({ onNavigate }: TechnologicalContro
                 <SelectValue placeholder="Filter by REQS MET" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Requirements</SelectItem>
+                <SelectItem value="all">All Requirements</SelectItem>
                 <SelectItem value="Yes">Yes</SelectItem>
                 <SelectItem value="No">No</SelectItem>
               </SelectContent>
@@ -393,7 +393,7 @@ export const TechnologicalControlsReports = ({ onNavigate }: TechnologicalContro
                 <SelectValue placeholder="Filter by Section" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Sections</SelectItem>
+                <SelectItem value="all">All Sections</SelectItem>
                 {Array.from({length: 34}, (_, i) => (
                   <SelectItem key={i} value={`A.8.${i + 1}`}>A.8.{i + 1}</SelectItem>
                 ))}
