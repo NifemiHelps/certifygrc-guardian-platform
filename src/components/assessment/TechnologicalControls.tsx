@@ -241,11 +241,11 @@ export const TechnologicalControls = ({ onNavigate }: TechnologicalControlsProps
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <div className="flex justify-between items-center mb-8">
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">A.8 Technological Controls</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-3xl font-bold">A.8 Technological Controls</h1>
+          <p className="text-muted-foreground mt-1">
             Assess your organization's technological security controls implementation
           </p>
         </div>
@@ -255,36 +255,27 @@ export const TechnologicalControls = ({ onNavigate }: TechnologicalControlsProps
           className="flex items-center gap-2"
         >
           <Eye className="h-4 w-4" />
-          View Reports
+          View A.8 Technological Controls Reports
         </Button>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           {sections.map((section, index) => (
-            <Card key={section.id} className="border border-border">
-              <CardHeader className="pb-4">
-                <CardTitle className="flex items-center gap-3">
-                  <Badge variant="secondary" className="text-sm">
-                    {section.id}
-                  </Badge>
-                  <span className="text-lg">{section.title}</span>
-                </CardTitle>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {section.question}
-                </p>
+            <Card key={section.id} className="mb-6">
+              <CardHeader>
+                <CardTitle className="text-lg">{section.id} {section.title}</CardTitle>
+                <p className="text-muted-foreground font-medium">{section.question}</p>
               </CardHeader>
               
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
                     name={`sections.${index}.reqsMet`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-sm font-medium">
-                          REQS MET <span className="text-destructive">*</span>
-                        </FormLabel>
+                        <FormLabel>REQS MET</FormLabel>
                         <FormControl>
                           <Select onValueChange={field.onChange} value={field.value}>
                             <SelectTrigger>
@@ -306,9 +297,7 @@ export const TechnologicalControls = ({ onNavigate }: TechnologicalControlsProps
                     name={`sections.${index}.actionOwner`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-sm font-medium">
-                          Action Owner <span className="text-destructive">*</span>
-                        </FormLabel>
+                        <FormLabel>Action Owner</FormLabel>
                         <FormControl>
                           <Input {...field} placeholder="Enter action owner" />
                         </FormControl>
@@ -323,14 +312,11 @@ export const TechnologicalControls = ({ onNavigate }: TechnologicalControlsProps
                   name={`sections.${index}.comments`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium">
-                        Comments <span className="text-destructive">*</span>
-                      </FormLabel>
+                      <FormLabel>Comments</FormLabel>
                       <FormControl>
-                        <Textarea 
+                        <Input 
                           {...field} 
-                          placeholder="Enter your comments"
-                          className="min-h-[100px]"
+                          placeholder="Enter comments"
                         />
                       </FormControl>
                       <FormMessage />
@@ -343,14 +329,12 @@ export const TechnologicalControls = ({ onNavigate }: TechnologicalControlsProps
                   name={`sections.${index}.actionNeeded`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium">
-                        Action needed to meet REQS <span className="text-destructive">*</span>
-                      </FormLabel>
+                      <FormLabel>Action needed to meet REQS</FormLabel>
                       <FormControl>
                         <Textarea 
                           {...field} 
-                          placeholder="Describe actions needed"
-                          className="min-h-[100px]"
+                          placeholder="Describe actions needed..."
+                          rows={3}
                         />
                       </FormControl>
                       <FormMessage />
@@ -363,23 +347,24 @@ export const TechnologicalControls = ({ onNavigate }: TechnologicalControlsProps
                   name={`sections.${index}.evidence`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium">Evidence Upload</FormLabel>
+                      <FormLabel>Evidence Upload</FormLabel>
                       <FormControl>
-                        <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 transition-colors">
-                          <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                          <Input
+                        <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-4">
+                          <input
                             type="file"
-                            accept=".pdf,.docx,.xlsx,.png,.jpg,.jpeg"
+                            accept=".pdf,.docx,.xlsx,.xls,.jpg,.jpeg,.png,.gif"
                             onChange={(e) => field.onChange(e.target.files?.[0])}
                             className="hidden"
                             id={`evidence-${section.id}`}
                           />
                           <label 
                             htmlFor={`evidence-${section.id}`}
-                            className="cursor-pointer text-sm text-muted-foreground hover:text-primary"
+                            className="flex flex-col items-center justify-center cursor-pointer"
                           >
-                            Click to upload or drag and drop<br />
-                            <span className="text-xs">PDF, DOCX, XLSX, PNG, JPG (max 10MB)</span>
+                            <Upload className="h-8 w-8 text-muted-foreground mb-2" />
+                            <span className="text-sm text-muted-foreground">
+                              Click to upload evidence files (PDF, DOCX, Excel, Images)
+                            </span>
                           </label>
                         </div>
                       </FormControl>
@@ -391,12 +376,8 @@ export const TechnologicalControls = ({ onNavigate }: TechnologicalControlsProps
             </Card>
           ))}
 
-          <div className="flex justify-end space-x-4 pt-6">
-            <Button type="button" variant="outline" onClick={() => form.reset()}>
-              Clear Form
-            </Button>
-            <Button type="submit" className="bg-primary hover:bg-primary/90">
-              <FileText className="h-4 w-4 mr-2" />
+          <div className="flex justify-end gap-4 pt-6">
+            <Button type="submit" size="lg">
               Save Assessment
             </Button>
           </div>

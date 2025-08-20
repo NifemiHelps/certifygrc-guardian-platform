@@ -151,12 +151,12 @@ const PhysicalControls: React.FC<PhysicalControlsProps> = ({ onNavigate }) => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">A.7 Physical Controls</h1>
-          <p className="text-muted-foreground mt-2">Assessment of physical and environmental security controls</p>
+          <h1 className="text-3xl font-bold">A.7 Physical Controls</h1>
+          <p className="text-muted-foreground mt-1">Assessment of physical and environmental security controls</p>
         </div>
         <Button onClick={handleViewReports} variant="outline" className="flex items-center gap-2">
           <Eye className="h-4 w-4" />
-          View Reports
+          View A.7 Physical Controls Reports
         </Button>
       </div>
 
@@ -198,12 +198,11 @@ const PhysicalControls: React.FC<PhysicalControlsProps> = ({ onNavigate }) => {
 
               <div className="space-y-2">
                 <Label htmlFor={`${section.id}-comments`}>Comments</Label>
-                <Textarea
+                <Input
                   id={`${section.id}-comments`}
                   value={formData[section.id]?.comments || ''}
                   onChange={(e) => handleInputChange(section.id, 'comments', e.target.value)}
-                  placeholder="Enter your comments"
-                  rows={3}
+                  placeholder="Enter comments"
                 />
               </div>
 
@@ -219,23 +218,34 @@ const PhysicalControls: React.FC<PhysicalControlsProps> = ({ onNavigate }) => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor={`${section.id}-evidence`}>Evidence</Label>
-                <div className="flex items-center gap-2">
-                  <Input
+                <Label htmlFor={`${section.id}-evidence`}>Evidence Upload</Label>
+                <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-4">
+                  <input
                     id={`${section.id}-evidence`}
                     type="file"
-                    accept=".pdf,.docx,.xlsx,.png,.jpg,.jpeg"
+                    multiple
+                    accept=".pdf,.docx,.xlsx,.xls,.jpg,.jpeg,.png,.gif"
                     onChange={(e) => handleFileUpload(section.id, e.target.files?.[0] || null)}
-                    className="flex-1"
+                    className="hidden"
                   />
-                  <Upload className="h-4 w-4 text-muted-foreground" />
+                  <label
+                    htmlFor={`${section.id}-evidence`}
+                    className="flex flex-col items-center justify-center cursor-pointer"
+                  >
+                    <Upload className="h-8 w-8 text-muted-foreground mb-2" />
+                    <span className="text-sm text-muted-foreground">
+                      Click to upload evidence files (PDF, DOCX, Excel, Images)
+                    </span>
+                  </label>
+                  {formData[section.id]?.evidence && (
+                    <div className="mt-2 space-y-1">
+                      <div className="flex items-center gap-2 text-sm">
+                        <FileText className="h-4 w-4" />
+                        <span>{formData[section.id].evidence.name}</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
-                {formData[section.id]?.evidence && (
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <FileText className="h-4 w-4" />
-                    <span>{formData[section.id].evidence.name}</span>
-                  </div>
-                )}
               </div>
             </CardContent>
           </Card>
