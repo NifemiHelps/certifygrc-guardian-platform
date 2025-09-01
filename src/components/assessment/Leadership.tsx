@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, FileUp, Eye } from "lucide-react";
+import { FileUp, Eye, Save, FileText } from "lucide-react";
 
 interface LeadershipProps {
   setActivePage?: (page: string) => void;
@@ -151,136 +151,151 @@ export const Leadership = ({ setActivePage }: LeadershipProps) => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setActivePage?.('assessment-gap')}
-            className="flex items-center gap-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Assessment Gap
-          </Button>
+      <div className="flex justify-between items-start">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">5. Leadership</h1>
+          <p className="text-muted-foreground mt-1">Assessment of leadership commitment, policy implementation, and organizational roles for information security management.</p>
         </div>
-        <Button
+        <Button 
           onClick={() => setActivePage?.('leadership-reports')}
           variant="outline"
-          className="flex items-center gap-2"
+          className="gap-2"
         >
           <Eye className="h-4 w-4" />
-          View 5. Leadership Reports
+          View Reports
         </Button>
       </div>
 
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">5. Leadership</h1>
-        <p className="text-gray-600">
-          Assessment of leadership commitment, policy implementation, and organizational roles for information security management.
-        </p>
-      </div>
-
-      <div className="space-y-8">
-        {sections.map((section) => (
-          <Card key={section.id} className="border-l-4 border-l-blue-500">
-            <CardHeader>
-              <CardTitle className="text-xl text-blue-700">{section.title}</CardTitle>
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <p className="text-gray-700">{section.question}</p>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor={`${section.id}-reqs`}>REQS MET *</Label>
-                  <Select
-                    value={formData[section.id]?.reqsMet || ""}
-                    onValueChange={(value) => updateSectionData(section.id, 'reqsMet', value)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="yes">Yes</SelectItem>
-                      <SelectItem value="no">No</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor={`${section.id}-owner`}>Action Owner</Label>
-                  <Input
-                    id={`${section.id}-owner`}
-                    value={formData[section.id]?.actionOwner || ""}
-                    onChange={(e) => updateSectionData(section.id, 'actionOwner', e.target.value)}
-                    placeholder="Enter action owner"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor={`${section.id}-comments`}>Comments</Label>
-                <Input
-                  id={`${section.id}-comments`}
-                  value={formData[section.id]?.comments || ""}
-                  onChange={(e) => updateSectionData(section.id, 'comments', e.target.value)}
-                  placeholder="Enter your comments"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor={`${section.id}-action`}>Action needed to meet REQS</Label>
-                <Textarea
-                  id={`${section.id}-action`}
-                  value={formData[section.id]?.actionNeeded || ""}
-                  onChange={(e) => updateSectionData(section.id, 'actionNeeded', e.target.value)}
-                  placeholder="Describe actions needed..."
-                  rows={3}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor={`${section.id}-evidence`}>Evidence Upload</Label>
-                <div className="flex items-center gap-2">
-                  <input
-                    id={`${section.id}-evidence`}
-                    type="file"
-                    accept=".pdf,.docx,.xlsx,.xls,.jpg,.jpeg,.png"
-                    onChange={(e) => handleFileUpload(section.id, e)}
-                    className="hidden"
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => document.getElementById(`${section.id}-evidence`)?.click()}
-                    className="flex items-center gap-2"
-                  >
-                    <FileUp className="h-4 w-4" />
-                    Choose File
-                  </Button>
-                  {formData[section.id]?.evidence && (
-                    <span className="text-sm text-gray-600">
-                      {formData[section.id].evidence?.name}
-                    </span>
-                  )}
-                </div>
-                <p className="text-xs text-gray-500">
-                  Supported formats: PDF, DOCX, Excel, Images (max 10MB)
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      <div className="flex justify-end space-x-4 pt-6">
-        <Button
-          onClick={handleSubmit}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-8"
-        >
-          Submit Assessment
-        </Button>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-xl">5. Leadership Assessment</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-6">
+            {sections.map(renderSection)}
+            
+            <div className="flex justify-end pt-4">
+              <Button type="submit" className="gap-2">
+                <Save className="h-4 w-4" />
+                Submit Assessment
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
+
+  function renderSection(section: typeof sections[0]) {
+    const sectionData = formData[section.id];
+
+    return (
+      <Card key={section.id} className="mb-6">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-lg font-semibold text-foreground">
+            {section.title}
+          </CardTitle>
+          <p className="text-sm text-muted-foreground mt-2">
+            {section.question}
+          </p>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor={`reqs-${section.id}`} className="text-sm font-medium">
+                REQS MET <span className="text-destructive">*</span>
+              </Label>
+              <Select 
+                value={sectionData?.reqsMet || ""} 
+                onValueChange={(value) => updateSectionData(section.id, 'reqsMet', value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select option" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor={`action-owner-${section.id}`} className="text-sm font-medium">
+                Action Owner
+              </Label>
+              <Input
+                id={`action-owner-${section.id}`}
+                value={sectionData?.actionOwner || ""}
+                onChange={(e) => updateSectionData(section.id, 'actionOwner', e.target.value)}
+                placeholder="Enter action owner"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor={`comments-${section.id}`} className="text-sm font-medium">
+              Comments
+            </Label>
+            <Textarea
+              id={`comments-${section.id}`}
+              value={sectionData?.comments || ""}
+              onChange={(e) => updateSectionData(section.id, 'comments', e.target.value)}
+              placeholder="Enter comments"
+              rows={3}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor={`action-needed-${section.id}`} className="text-sm font-medium">
+              Action needed to meet REQS
+            </Label>
+            <Textarea
+              id={`action-needed-${section.id}`}
+              value={sectionData?.actionNeeded || ""}
+              onChange={(e) => updateSectionData(section.id, 'actionNeeded', e.target.value)}
+              placeholder="Enter action needed"
+              rows={3}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor={`evidence-${section.id}`} className="text-sm font-medium">
+              Evidence Upload
+            </Label>
+            <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-4 hover:border-muted-foreground/40 transition-colors">
+              <div className="flex flex-col items-center justify-center space-y-2">
+                <FileUp className="h-8 w-8 text-muted-foreground" />
+                <div className="text-center">
+                  <Label htmlFor={`evidence-file-${section.id}`} className="cursor-pointer">
+                    <span className="text-sm text-primary hover:text-primary/80">
+                      Click to upload files
+                    </span>
+                    <Input
+                      id={`evidence-file-${section.id}`}
+                      type="file"
+                      accept=".pdf,.docx,.xlsx,.xls,.jpg,.jpeg,.png"
+                      className="hidden"
+                      onChange={(e) => handleFileUpload(section.id, e)}
+                    />
+                  </Label>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Supports multiple file types
+                  </p>
+                </div>
+              </div>
+              {sectionData?.evidence && (
+                <div className="mt-3 pt-3 border-t border-muted-foreground/20">
+                  <p className="text-xs text-muted-foreground mb-2">Uploaded file:</p>
+                  <div className="flex items-center gap-2 text-xs">
+                    <FileText className="h-3 w-3" />
+                    <span className="truncate">{sectionData.evidence.name}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 };
