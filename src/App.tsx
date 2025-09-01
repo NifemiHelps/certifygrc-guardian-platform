@@ -21,6 +21,7 @@ const App = () => (
           <Route path="/risk-analysis" element={<Index />} />
           <Route path="/assessment-gap" element={<Index />} />
           <Route path="/assessment-evidence" element={<Index />} />
+          <Route path="/assessment-evidence-reports" element={<Index />} />
           <Route path="/treatment-dashboard" element={<Index />} />
           <Route path="/company-details" element={<Index />} />
           <Route path="/context-org" element={<Index />} />

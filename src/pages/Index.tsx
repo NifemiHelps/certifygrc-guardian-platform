@@ -7,6 +7,7 @@ import { Dashboard } from "@/components/dashboard/Dashboard";
 import { RiskAnalysis } from "@/components/risk/RiskAnalysis";
 import { AssessmentGap } from "@/components/assessment/AssessmentGap";
 import { AssessmentEvidence } from "@/components/assessment/AssessmentEvidence";
+import { AssessmentEvidenceReports } from "@/components/assessment/AssessmentEvidenceReports";
 import { ContextOfOrganization } from "@/components/assessment/ContextOfOrganization";
 import { ContextOfOrganizationReports } from "@/components/assessment/ContextOfOrganizationReports";
 import { Leadership } from "@/components/assessment/Leadership";
@@ -32,7 +33,7 @@ import { TechnologicalControlsReports } from "@/components/assessment/Technologi
 import { TreatmentDashboard } from "@/components/treatment/TreatmentDashboard";
 import { CompanyDetails } from "@/components/company/CompanyDetails";
 
-type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'treatment-dashboard' | 'company-details' | 'context-org' | 'context-organization-reports' | 'leadership' | 'leadership-reports' | 'planning' | 'planning-reports' | 'support' | 'support-reports' | 'operation' | 'operation-reports' | 'performance-evaluation' | 'performance-evaluation-reports' | 'improvement' | 'improvement-reports' | 'organizational-controls' | 'organizational-controls-reports' | 'people-controls' | 'people-controls-reports' | 'physical-controls' | 'physical-controls-reports' | 'technological-controls' | 'technological-controls-reports';
+type PageType = 'dashboard' | 'risk-analysis' | 'assessment-gap' | 'assessment-evidence' | 'assessment-evidence-reports' | 'treatment-dashboard' | 'company-details' | 'context-org' | 'context-organization-reports' | 'leadership' | 'leadership-reports' | 'planning' | 'planning-reports' | 'support' | 'support-reports' | 'operation' | 'operation-reports' | 'performance-evaluation' | 'performance-evaluation-reports' | 'improvement' | 'improvement-reports' | 'organizational-controls' | 'organizational-controls-reports' | 'people-controls' | 'people-controls-reports' | 'physical-controls' | 'physical-controls-reports' | 'technological-controls' | 'technological-controls-reports';
 
 const Index = () => {
   const location = useLocation();
@@ -47,6 +48,7 @@ const Index = () => {
     '/risk-analysis': 'risk-analysis',
     '/assessment-gap': 'assessment-gap',
     '/assessment-evidence': 'assessment-evidence',
+    '/assessment-evidence-reports': 'assessment-evidence-reports',
     '/treatment-dashboard': 'treatment-dashboard',
     '/company-details': 'company-details',
     '/context-org': 'context-org',
@@ -78,6 +80,7 @@ const Index = () => {
     'risk-analysis': '/risk-analysis',
     'assessment-gap': '/assessment-gap',
     'assessment-evidence': '/assessment-evidence',
+    'assessment-evidence-reports': '/assessment-evidence-reports',
     'treatment-dashboard': '/treatment-dashboard',
     'company-details': '/company-details',
     'context-org': '/context-org',
@@ -135,7 +138,9 @@ const Index = () => {
       case 'assessment-gap':
         return <AssessmentGap setActivePage={handleSetActivePage} />;
       case 'assessment-evidence':
-        return <AssessmentEvidence />;
+        return <AssessmentEvidence setActivePage={handleSetActivePage} />;
+      case 'assessment-evidence-reports':
+        return <AssessmentEvidenceReports setActivePage={handleSetActivePage} />;
       case 'treatment-dashboard':
         return <TreatmentDashboard />;
       case 'company-details':
