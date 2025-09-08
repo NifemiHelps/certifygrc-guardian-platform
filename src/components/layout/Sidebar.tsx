@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { ChevronDown, Home, BarChart, Search, FileText, Briefcase, Building } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface SidebarProps {
   activePage: string;
@@ -90,7 +91,7 @@ export const Sidebar = ({ activePage, setActivePage, isOpen, setIsOpen }: Sideba
 
   return (
     <div className={cn(
-      "fixed left-0 top-0 h-full bg-white border-r border-gray-200 transition-all duration-300 z-40",
+      "fixed left-0 top-0 h-full bg-white border-r border-gray-200 transition-all duration-300 z-40 flex flex-col",
       isOpen ? "w-64" : "w-16"
     )}>
       <div className="p-4 border-b border-gray-200">
@@ -107,58 +108,60 @@ export const Sidebar = ({ activePage, setActivePage, isOpen, setIsOpen }: Sideba
         </div>
       </div>
 
-      <nav className="mt-4">
-        {menuItems.map((item) => (
-          <div key={item.id} className="mb-1">
-            <button
-              onClick={() => {
-                if (item.hasSubmenu) {
-                  toggleMenu(item.id);
-                } else {
-                  setActivePage(item.page);
-                }
-              }}
-              className={cn(
-                "w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors",
-                activePage === item.page && !item.hasSubmenu ? "bg-blue-50 text-blue-600 border-r-2 border-blue-600" : "text-gray-700"
-              )}
-            >
-              <item.icon size={20} />
-              {isOpen && (
-                <>
-                  <span className="flex-1 font-medium">{item.label}</span>
-                  {item.hasSubmenu && (
-                    <ChevronDown 
-                      size={16} 
-                      className={cn(
-                        "transition-transform",
-                        expandedMenus.includes(item.id) ? "rotate-180" : ""
-                      )}
-                    />
-                  )}
-                </>
-              )}
-            </button>
-
-            {item.hasSubmenu && expandedMenus.includes(item.id) && isOpen && (
-              <div className="bg-gray-50">
-                {item.subItems?.map((subItem) => (
-                  <button
-                    key={subItem.id}
-                    onClick={() => setActivePage(subItem.page)}
-                    className={cn(
-                      "w-full flex items-center gap-3 px-12 py-2 text-left hover:bg-gray-100 transition-colors text-sm",
-                      activePage === subItem.page ? "bg-blue-50 text-blue-600" : "text-gray-600"
+      <ScrollArea className="flex-1 mt-4">
+        <nav className="pb-4">
+          {menuItems.map((item) => (
+            <div key={item.id} className="mb-1">
+              <button
+                onClick={() => {
+                  if (item.hasSubmenu) {
+                    toggleMenu(item.id);
+                  } else {
+                    setActivePage(item.page);
+                  }
+                }}
+                className={cn(
+                  "w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors",
+                  activePage === item.page && !item.hasSubmenu ? "bg-blue-50 text-blue-600 border-r-2 border-blue-600" : "text-gray-700"
+                )}
+              >
+                <item.icon size={20} />
+                {isOpen && (
+                  <>
+                    <span className="flex-1 font-medium">{item.label}</span>
+                    {item.hasSubmenu && (
+                      <ChevronDown 
+                        size={16} 
+                        className={cn(
+                          "transition-transform",
+                          expandedMenus.includes(item.id) ? "rotate-180" : ""
+                        )}
+                      />
                     )}
-                  >
-                    {subItem.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </nav>
+                  </>
+                )}
+              </button>
+
+              {item.hasSubmenu && expandedMenus.includes(item.id) && isOpen && (
+                <div className="bg-gray-50">
+                  {item.subItems?.map((subItem) => (
+                    <button
+                      key={subItem.id}
+                      onClick={() => setActivePage(subItem.page)}
+                      className={cn(
+                        "w-full flex items-center gap-3 px-12 py-2 text-left hover:bg-gray-100 transition-colors text-sm",
+                        activePage === subItem.page ? "bg-blue-50 text-blue-600" : "text-gray-600"
+                      )}
+                    >
+                      {subItem.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </nav>
+      </ScrollArea>
     </div>
   );
 };
